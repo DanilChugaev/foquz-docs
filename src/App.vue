@@ -4,9 +4,11 @@
             <h1 class="app-container__title">Тестовое задание Foquz</h1>
 
             <nav class="app-container__nav">
+                <router-link class="app-container__link" to="/docs">Документы</router-link>
+
                 <router-link class="app-container__link" to="/">ТЗ</router-link>
 
-                <router-link class="app-container__link" to="/docs">Документы</router-link>
+                <router-link class="app-container__link" to="/ui">UI</router-link>
             </nav>
         </header>
 

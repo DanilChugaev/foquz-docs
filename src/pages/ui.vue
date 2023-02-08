@@ -22,6 +22,56 @@
             <Indicator color="#8E9CBB" />
             <Indicator color="#0066FF" />
         </div>
+
+        <div class="container">
+            <UiButton>
+                <template #icon>
+                    <IconBookmark />
+                </template>
+            </UiButton>
+
+            <UiButton>
+                <template #icon>
+                    <IconPlus slot="icon"/>
+                </template>
+                <template #default>
+                    Новый тип
+                </template>
+            </UiButton>
+
+            <UiButton>
+                <template #icon>
+                    <IconPlus slot="icon"/>
+                </template>
+                <template #default>
+                    Новый Документ
+                </template>
+            </UiButton>
+
+            <UiButton>
+                <template #icon>
+                    <IconArrow />
+                </template>
+            </UiButton>
+
+            <UiButton :has-border="false">
+                <template #icon>
+                    <IconEdit />
+                </template>
+            </UiButton>
+
+            <UiButton :has-border="false">
+                <template #icon>
+                    <IconDelete />
+                </template>
+            </UiButton>
+
+            <UiButton :has-border="false">
+                <template #icon>
+                    <IconMove />
+                </template>
+            </UiButton>
+        </div>
     </div>
 </template>
 
@@ -35,6 +85,7 @@ import IconEdit from '~/components/icons/edit.vue';
 import IconDelete from '~/components/icons/delete.vue';
 import IconMove from '~/components/icons/move.vue';
 import Indicator from '~/components/indicator.vue';
+import UiButton from '~/components/button.vue';
 
 export default {
     name: 'ui',
@@ -49,13 +100,14 @@ export default {
         IconDelete,
         IconMove,
         Indicator,
+        UiButton,
     },
 };
 </script>
 
 <style scoped lang="scss">
     .ui {
-        padding: var(--spacer-d);
+        padding: var(--spacer-f);
     }
 
     .container {

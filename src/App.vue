@@ -33,7 +33,7 @@ export default {
             justify-content: space-between;
             align-items: center;
             height: 60px;
-            padding: 0 var(--spacer-d);
+            padding: 0 var(--spacer-f);
         }
 
         &__nav {

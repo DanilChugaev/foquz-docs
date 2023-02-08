@@ -93,14 +93,14 @@ export default {
 <style scoped lang="stylus">
     // в реальном проекте в целях сохранения производительности рендеринга стили напрямую на теги не навешиваются
     .index {
-        padding: var(--spacer-d);
+        padding: var(--spacer-f);
 
         h2 {
             margin: var(--spacer-d) 0;
         }
 
         ol, ul {
-            padding-left: var(--spacer-x);
+            padding-left: var(--spacer-h);
             margin: var(--spacer-c) 0;
         }
 

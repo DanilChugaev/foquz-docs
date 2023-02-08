@@ -13,6 +13,15 @@
             <IconDelete />
             <IconMove />
         </div>
+
+        <div class="container">
+            <Indicator color="#FF8D23" />
+            <Indicator color="#FFB800" />
+            <Indicator color="#FF238D" />
+            <Indicator color="#00C2FF" />
+            <Indicator color="#8E9CBB" />
+            <Indicator color="#0066FF" />
+        </div>
     </div>
 </template>
 
@@ -25,6 +34,7 @@ import IconArrow from '~/components/icons/arrow.vue';
 import IconEdit from '~/components/icons/edit.vue';
 import IconDelete from '~/components/icons/delete.vue';
 import IconMove from '~/components/icons/move.vue';
+import Indicator from '~/components/indicator.vue';
 
 export default {
     name: 'ui',
@@ -38,6 +48,7 @@ export default {
         IconEdit,
         IconDelete,
         IconMove,
+        Indicator,
     },
 };
 </script>
@@ -52,7 +63,8 @@ export default {
         align-items: center;
         margin-top: var(--spacer-b);
 
-        svg + svg {
+        svg + svg,
+        .indicator + .indicator {
             margin-left: var(--spacer-b);
         }
     }

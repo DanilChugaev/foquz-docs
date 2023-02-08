@@ -5,7 +5,7 @@
         </p>
 
         <p>
-            <a href="https://www.figma.com/file/W7qIKLBDyyRd4pHqy0KCOe/test-front?node-id=3031%3A5" target="__blank">
+            <a href="https://www.figma.com/file/W7qIKLBDyyRd4pHqy0KCOe/test-front?node-id=2053%3A399" target="__blank">
                 Макет в figma
             </a>
 

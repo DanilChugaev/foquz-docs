@@ -48,6 +48,12 @@
                 </template>
             </UiButton>
 
+            <UiButton :has-border="false">
+                <template #icon>
+                    <IconClose />
+                </template>
+            </UiButton>
+
             <UiButton>
                 <template #icon>
                     <IconArrow />
@@ -72,6 +78,14 @@
                 </template>
             </UiButton>
         </div>
+
+        <div class="container">
+            <UiInput
+                v-model="value"
+                placeholder="Просто поиск"
+            />
+            <p>{{ value }}</p>
+        </div>
     </div>
 </template>
 
@@ -86,6 +100,7 @@ import IconDelete from '~/components/icons/delete.vue';
 import IconMove from '~/components/icons/move.vue';
 import Indicator from '~/components/indicator.vue';
 import UiButton from '~/components/button.vue';
+import UiInput from '~/components/input.vue';
 
 export default {
     name: 'ui',
@@ -101,6 +116,13 @@ export default {
         IconMove,
         Indicator,
         UiButton,
+        UiInput,
+    },
+
+    data() {
+        return {
+            value: '',
+        };
     },
 };
 </script>

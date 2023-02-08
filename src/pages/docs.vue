@@ -30,6 +30,12 @@
             </div>
         </div>
 
+        <div class="docs__container">
+            <UiInput
+                v-model="searchValue"
+                class="docs__search"
+            />
+        </div>
     </div>
 </template>
 
@@ -37,6 +43,7 @@
 import IconPlus from '~/components/icons/plus.vue';
 import IconBookmark from '~/components/icons/bookmark.vue';
 import UiButton from '~/components/button.vue';
+import UiInput from '~/components/input.vue';
 
 export default {
     name: 'docs',
@@ -45,6 +52,13 @@ export default {
         IconPlus,
         IconBookmark,
         UiButton,
+        UiInput,
+    },
+
+    data() {
+        return {
+            searchValue: '',
+        };
     },
 };
 </script>
@@ -69,6 +83,10 @@ export default {
 
         &__actions {
             gap: var(--spacer-b);
+        }
+
+        &__search {
+            margin-top: var(--spacer-d);
         }
     }
 </style>

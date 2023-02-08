@@ -1,8 +1,10 @@
 <template>
     <button
-        class="button"
+        :class="{
+            'button': true,
+            'button--has-border': hasBorder,
+        }"
         type="button"
-        :class="viewClass"
         @click="click"
     >
         <span v-if="hasIconSlot" class="button__icon">
@@ -28,25 +30,6 @@ export default {
     },
 
     computed: {
-        /** Навешиваем классы состояний */
-        viewClass(): Array<string> {
-            const result = [];
-
-            if (this.hasIconSlot) {
-                result.push('button--has-icon');
-            }
-
-            if (this.hasDefaultSlot) {
-                result.push('button--has-default');
-            }
-
-            if (this.hasBorder) {
-                result.push('button--has-border');
-            }
-
-            return result;
-        },
-
         /** Имеет ли кнопка содержимое в дефолтном слоте */
         hasDefaultSlot(): boolean {
             return Boolean(this.$slots.default);
@@ -77,12 +60,13 @@ export default {
         color: var(--text-color);
         outline: none;
         cursor: pointer;
-        border-radius: 50px;
+        border-radius: none;
         border: none;
         min-width: 30px;
         min-height: 30px;
         padding: 0 var(--spacer-b);
         background-color: transparent;
+        transition: transform 0.1s ease-out;
 
         &:active {
             transform: scale(0.96);
@@ -98,15 +82,9 @@ export default {
             padding: 0 var(--spacer-b);
         }
 
-        &--has-default {
-        }
-
-        &--has-icon {
-
-        }
-
         &--has-border {
             border: 1px solid var(--border-color);
+            border-radius: 50px;
         }
     }
 </style>

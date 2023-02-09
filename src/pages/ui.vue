@@ -86,6 +86,25 @@
             />
             <p>{{ value }}</p>
         </div>
+
+        <div class="container container--vertical">
+            <CategoryItem
+                :key="category.id"
+                :id="category.id"
+                :title="category.title"
+                :indicators="category.indicators"
+                :description="category.description"
+            >
+                <ElementItem
+                    :key="element.id"
+                    :id="element.id"
+                    :title="element.title"
+                    :indicators="element.indicators"
+                    :warning="element.warning"
+                    :description="element.description"
+                />
+            </CategoryItem>
+        </div>
     </div>
 </template>
 
@@ -101,6 +120,8 @@ import IconMove from '~/components/icons/move.vue';
 import Indicator from '~/components/indicator.vue';
 import UiButton from '~/components/button.vue';
 import UiInput from '~/components/input.vue';
+import CategoryItem from '~/components/list/category.vue';
+import ElementItem from '~/components/list/element.vue';
 
 export default {
     name: 'ui',
@@ -117,11 +138,26 @@ export default {
         Indicator,
         UiButton,
         UiInput,
+        CategoryItem,
+        ElementItem,
     },
 
     data() {
         return {
             value: '',
+            category: {
+                id: 'c1',
+                title: 'Обязательные для всех',
+                indicators: ['#FF8D23', '#FFB800', '#FF238D'],
+                description: 'Документы, обязательные для всех сотрудников без исключения',
+            },
+            element: {
+                id: 'e3',
+                title: 'Улучшенный паспорт',
+                indicators: ['#FF8D23'],
+                warning: 'Надо',
+                description: '',
+            },
         };
     },
 };
@@ -136,6 +172,11 @@ export default {
         display: flex;
         align-items: center;
         margin-top: var(--spacer-b);
+        max-width: 1190px;
+
+        &--vertical {
+            flex-direction: column;
+        }
 
         svg + svg,
         .indicator + .indicator {

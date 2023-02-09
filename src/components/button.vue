@@ -3,9 +3,10 @@
         :class="{
             'button': true,
             'button--has-border': hasBorder,
+            'button--has-icon': hasIconSlot,
+            'button--has-default': hasDefaultSlot,
         }"
         type="button"
-        @click="click"
     >
         <span v-if="hasIconSlot" class="button__icon">
             <slot name="icon"></slot>
@@ -20,7 +21,7 @@
 
 <script lang="ts">
 export default {
-    name: 'indicator',
+    name: 'ui-button',
 
     props: {
         hasBorder: {
@@ -40,13 +41,6 @@ export default {
             return Boolean(this.$slots.icon);
         },
     },
-
-    methods: {
-        /** Обработчик нажатия на кнопку */
-        click(event: Event): void {
-            this.$emit('click', event);
-        },
-    },
 };
 </script>
 
@@ -64,12 +58,11 @@ export default {
         border: none;
         min-width: 30px;
         min-height: 30px;
-        padding: 0 var(--spacer-b);
         background-color: transparent;
         transition: transform 0.1s ease-out;
 
         &:active {
-            transform: scale(0.96);
+            transform: translateY(1px);
         }
 
         &__text,
@@ -83,8 +76,12 @@ export default {
         }
 
         &--has-border {
-            border: 1px solid var(--border-color);
+            border: 1px solid var(--button-border-color);
             border-radius: 50px;
+        }
+
+        &--has-icon.button--has-default {
+            padding: 0 var(--spacer-b);
         }
     }
 </style>

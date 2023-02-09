@@ -21,7 +21,7 @@
         <UiButton
             :class="{
                 'input-container__close-button': true,
-                'input-container__close-button--is-active': modelValue,
+                'input-container__close-button--is-visible': modelValue,
             }"
             :has-border="false"
             @click="handleClickClose"
@@ -39,7 +39,7 @@ import IconClose from '~/components/icons/close.vue';
 import UiButton from '~/components/button.vue';
 
 export default {
-    name: 'ui',
+    name: 'ui-input',
 
     components: {
         IconLoop,
@@ -98,11 +98,11 @@ export default {
         max-width: 564px;
         overflow: hidden;
         padding-right: var(--spacer-f);
-        border-bottom: 1px solid var(--input-main-color);
+        border-bottom: 1px solid var(--gray-blue-color);
         transition: border-color 0.2s ease-out;
 
         &__loop-icon {
-            color: var(--input-main-color);
+            color: var(--gray-blue-color);
             margin-right: var(--spacer-b);
         }
 
@@ -118,7 +118,7 @@ export default {
             pointer-events: none;
             opacity: 0;
 
-            &--is-active {
+            &--is-visible {
                 user-select: auto;
                 pointer-events: all;
                 opacity: 1;
@@ -141,16 +141,19 @@ export default {
         }
 
         ::placeholder {
-            color: var(--input-main-color);
+            color: var(--gray-blue-color);
+            font-style: italic;
             opacity: 1;
         }
 
         :-ms-input-placeholder {
-            color: var(--input-main-color);
+            color: var(--gray-blue-color);
+            font-style: italic;
         }
 
         ::-ms-input-placeholder {
-            color: var(--input-main-color);
+            color: var(--gray-blue-color);
+            font-style: italic;
         }
     }
 </style>

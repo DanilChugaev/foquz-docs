@@ -1,15 +1,15 @@
 :root {
     --black-color: #000;
+    --white-color: #fff;
     --blue-color: #0066FF;
     --light-blue-color: #00C2FF;
+    --gray-blue-color: #8E9CBB;
     --pink-color: #FF238D;
 
     --text-color: var(--black-color);
     --text-hover-color: #274056;
     --link-hover-color: rgb(175, 77, 77);
-    --border-color: #D3D8DF;
-
+    --button-border-color: #D3D8DF;
+    --list-item-border-color: #DFE4EF;
     --indicator-shadow-color: rgba(0, 0, 0, 0.25);
-
-    --input-main-color: #8E9CBB;
 }

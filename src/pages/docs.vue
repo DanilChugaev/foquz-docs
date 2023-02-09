@@ -39,7 +39,7 @@
             <div class="docs__list-container">
                 <div class="docs__list">
                     <CategoryItem
-                        v-for="category in categories"
+                        v-for="category in filteredCategories"
                         :key="category.id"
                         :id="category.id"
                         :title="category.title"
@@ -60,7 +60,7 @@
 
                 <div class="docs__list">
                     <ElementItem
-                        v-for="element in elements"
+                        v-for="element in filteredElements"
                         :key="element.id"
                         :id="element.id"
                         :title="element.title"
@@ -81,6 +81,22 @@ import UiButton from '~/components/button.vue';
 import UiInput from '~/components/input.vue';
 import CategoryItem from '~/components/list/category.vue';
 import ElementItem from '~/components/list/element.vue';
+
+interface ElementItemInterface {
+    id: string;
+    title: string;
+    indicators: string[];
+    warning: string;
+    description: string;
+}
+
+interface CategoryItemInterface {
+    id: string;
+    title: string;
+    indicators: string[];
+    description: string;
+    elements: ElementItemInterface[];
+}
 
 export default {
     name: 'docs',
@@ -196,6 +212,29 @@ export default {
                 },
             ],
         };
+    },
+
+    computed: {
+        filteredCategories(): CategoryItemInterface[] {
+            if (this.searchValue) {
+                return this.categories.filter(({title, elements}) => {
+                    return title.toLowerCase().indexOf(this.searchValue.toLowerCase()) >= 0
+                    || elements.some((element) => element.title.toLowerCase().indexOf(this.searchValue.toLowerCase()) >= 0);
+                });
+            }
+
+            return this.categories;
+        },
+
+        filteredElements(): ElementItemInterface[] {
+            if (this.searchValue) {
+                return this.elements.filter(({title}) => {
+                    return title.toLowerCase().indexOf(this.searchValue.toLowerCase()) >= 0;
+                });
+            }
+
+            return this.elements;
+        },
     },
 };
 </script>

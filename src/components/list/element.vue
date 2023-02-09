@@ -81,7 +81,10 @@ export default {
         padding: 0 var(--spacer-a) 0 var(--spacer-c);
         background-color: var(--white-color);
         gap: var(--spacer-c);
-        // margin-top: -1px;
+
+        & + .element {
+            margin-top: -1px;
+        }
 
         &__title {
             font-weight: 400;

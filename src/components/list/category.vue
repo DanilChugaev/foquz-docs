@@ -37,7 +37,7 @@
             ref="content"
             class="category__content"
             :style="[
-                `max-height: ${contentHeight}`
+                `max-height: ${contentHeight}`,
             ]"
         >
             <slot />
@@ -106,21 +106,23 @@ export default {
 
 <style scoped lang="scss">
     .category {
-        overflow: hidden;
         width: 100%;
+
+        & + .category {
+            margin-top: -1px;
+        }
 
         &__header {
             display: flex;
             align-items: center;
-            position: relative;
             width: 100%;
             height: 48px;
             border: 1px solid var(--list-item-border-color);
             padding: 0 var(--spacer-a) 0 var(--spacer-c);
             background-color: var(--white-color);
             gap: var(--spacer-c);
-            // margin-top: -1px;
-            z-index: 2;
+            position: relative;
+            z-index: 1;
         }
 
         &__open-button {
@@ -149,18 +151,13 @@ export default {
         }
 
         &__content {
-            position: relative;
             width: 100%;
             padding-left: var(--spacer-c);
             overflow: hidden;
             max-height: 0;
             will-change: max-height;
             transition: max-height 0.3s linear;
-            z-index: 1;
-
-            &--is-visible {
-                max-height: 70px;
-            }
+            margin-top: -1px;
         }
     }
 </style>

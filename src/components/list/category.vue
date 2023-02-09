@@ -83,12 +83,23 @@ export default {
             type: String,
             default: '',
         },
+
+        isNeedOpen: {
+            type: Boolean,
+            default: false,
+        },
     },
 
     data() {
         return {
             isVisibleContent: false,
         };
+    },
+
+    watch: {
+        isNeedOpen(val) {
+            this.isVisibleContent = val;
+        },
     },
 
     computed: {

@@ -45,6 +45,7 @@
                         :title="category.title"
                         :indicators="category.indicators"
                         :description="category.description"
+                        :isNeedOpen="category.isNeedOpen"
                     >
                         <ElementItem
                             v-for="element in category.elements"
@@ -86,16 +87,17 @@ interface ElementItemInterface {
     id: string;
     title: string;
     indicators: string[];
-    warning: string;
-    description: string;
+    warning?: string;
+    description?: string;
 }
 
 interface CategoryItemInterface {
     id: string;
     title: string;
     indicators: string[];
-    description: string;
     elements: ElementItemInterface[];
+    description?: string;
+    isNeedOpen?: boolean;
 }
 
 export default {
@@ -215,17 +217,23 @@ export default {
     },
 
     computed: {
+        /** Фильтруем категории по поисковому слову */
         filteredCategories(): CategoryItemInterface[] {
             if (this.searchValue) {
-                return this.categories.filter(({title, elements}) => {
-                    return title.toLowerCase().indexOf(this.searchValue.toLowerCase()) >= 0
-                    || elements.some((element) => element.title.toLowerCase().indexOf(this.searchValue.toLowerCase()) >= 0);
+                return this.categories.filter((category) => {
+                    const isCategoryTitleMatches = category.title.toLowerCase().indexOf(this.searchValue.toLowerCase()) >= 0;
+                    const isSomeElementTitleMatches = category.elements.some((element) => element.title.toLowerCase().indexOf(this.searchValue.toLowerCase()) >= 0);
+
+                    category.isNeedOpen = isSomeElementTitleMatches;
+
+                    return isCategoryTitleMatches || isSomeElementTitleMatches;
                 });
             }
 
             return this.categories;
         },
 
+        /** Фильтруем елементы по поисковому слову */
         filteredElements(): ElementItemInterface[] {
             if (this.searchValue) {
                 return this.elements.filter(({title}) => {

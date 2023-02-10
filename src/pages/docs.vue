@@ -323,10 +323,33 @@ export default {
                     this.elements.splice(oldChildIndex, 1);
                 }
 
+                if (!newParentid && oldParentid) {
+                    // тут переещаем элементы только из категории в список элементов
+                    const oldParentIndex = this.findIndex({
+                        array: this.categories,
+                        id: oldParentid,
+                    });
+                    const oldChildIndex = this.findIndex({
+                        array: this.categories[oldParentIndex].elements,
+                        id: oldPositionId,
+                    });
+
+                    this.elements = this.sortItems({
+                        array: [...this.elements, this.categories[oldParentIndex].elements[oldChildIndex]],
+                        newPositionId,
+                        oldPositionId,
+                    });
+
+                    this.categories[oldParentIndex].elements.splice(oldChildIndex, 1);
+                }
+
                 if (!newParentid && !oldParentid) {
-                    // debugger
                     // тут перемещаем только элементы снаружи
-                    this.elements = this.sortItems({array: this.elements, newPositionId, oldPositionId});
+                    this.elements = this.sortItems({
+                        array: this.elements,
+                        newPositionId,
+                        oldPositionId,
+                    });
                 }
             }
         },

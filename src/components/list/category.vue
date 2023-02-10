@@ -87,6 +87,7 @@ export default {
     data() {
         return {
             isVisibleContent: false,
+            contentHeight: '0px',
         };
     },
 
@@ -96,14 +97,11 @@ export default {
         },
     },
 
-    computed: {
-        /** Вычисляем высоту контента */
-        contentHeight(): string | number {
-            if (this.isVisibleContent && this.$refs.content) {
-                return `${this.$refs.content.scrollHeight}px`;
-            }
-
-            return '0px';
+    updated() {
+        if (this.isVisibleContent && this.$refs.content) {
+            this.contentHeight = `${this.$refs.content.scrollHeight}px`;
+        } else {
+            this.contentHeight = '0px';
         }
     },
 };

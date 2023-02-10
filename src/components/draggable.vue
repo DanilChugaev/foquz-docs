@@ -7,7 +7,7 @@
         }"
         :data-id="id"
         :data-group="group"
-        :data-parentId="parentId"
+        :data-parentid="parentid"
         :draggable="isDraggable"
         @dragend="handleDragend"
         @dragover="handleDragover"
@@ -31,7 +31,7 @@ export default {
             type: String,
             required: true,
         },
-        parentId: {
+        parentid: {
             type: String,
             default: '',
         },
@@ -69,26 +69,26 @@ export default {
         handleDragleave(event) {
             event.stopPropagation();
 
+            this.isOver = false;
+
             clearTimeout(this.timerId);
 
             this.timerId = setTimeout(() => {
-                this.isOver = false;
                 const dataset = document.querySelector('.draggable--is-draggable').dataset;
 
                 if (!this.isDraggable && this.group === dataset.group && this.id !== dataset.is) {
 
                     console.log('this.id', this.id);
                     console.log('this.group', this.group);
-                    console.log('this.parentId', this.parentId);
+                    console.log('this.parentid', this.parentid);
                     console.log('dataset', dataset);
-
 
                     this.$emit('onchange', {
                         newPositionId: this.id,
                         oldPositionId: dataset.id,
                         group: dataset.group,
-                        oldParentId: dataset.parentId,
-                        newParentId: this.parentId,
+                        oldParentid: dataset.parentid,
+                        newParentid: this.parentid,
                     });
                 }
             }, 100);

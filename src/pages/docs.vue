@@ -56,7 +56,7 @@
                                 :key="element.id"
                                 :id="element.id"
                                 group="elements"
-                                :parentId="category.id"
+                                :parentid="category.id"
                                 @onchange="setNewPositions"
                             >
                                 <ElementItem
@@ -264,23 +264,50 @@ export default {
     },
 
     methods: {
-        setNewPositions({ group, oldParentId, newParentId, newPositionId, oldPositionId }) {
+        setNewPositions({ group, newParentid, oldParentid, newPositionId, oldPositionId }) {
             if (group === 'categories') {
+                // тут перемещаем между собой только категории
                 this.categories = this.sortItems({array: this.categories, newPositionId, oldPositionId});
             } else {
-                if (newParentId && !oldParentId) {
-                    const newParentIndex = this.categories.findIndex((category) => {
-                        return category.id === newParentId;
+                if (newParentid && oldParentid) {
+                    const newParentIndex = this.findIndex({
+                        array: this.categories,
+                        id: newParentid,
                     });
 
-                    this.categories[newParentIndex].elements = this.sortItems({array: this.categories[newParentIndex].elements, newPositionId, oldPositionId});
+                    if (newParentid === oldParentid) {
+                        // тут перемещает элементы между собой только внутри категории
+                        this.categories[newParentIndex].elements = this.sortItems({
+                            array: this.categories[newParentIndex].elements,
+                            newPositionId,
+                            oldPositionId,
+                        });
+                    } else {
+                        const oldParentIndex = this.findIndex({
+                            array: this.categories,
+                            id: oldParentid,
+                        });
+                        const oldChildIndex = this.findIndex({
+                            array: this.categories[oldParentIndex].elements,
+                            id: oldPositionId,
+                        });
+
+                        this.categories[newParentIndex].elements = this.sortItems({
+                            array: [...this.categories[newParentIndex].elements, this.categories[oldParentIndex].elements[oldChildIndex]],
+                            newPositionId,
+                            oldPositionId,
+                        });
+
+                        this.categories[oldParentIndex].elements.splice(oldChildIndex, 1);
+                    }
                 }
 
-                // if (newParentId && oldParentId) {
+                if (newParentid && !oldParentid) {
+                    // debugger
+                }
 
-                // }
-
-                if (!oldParentId && !newParentId) {
+                if (!newParentid && !oldParentid) {
+                    // тут перемещаем только элементы снаружи
                     this.elements = this.sortItems({array: this.elements, newPositionId, oldPositionId});
                 }
             }
@@ -317,6 +344,12 @@ export default {
             }
 
             return array;
+        },
+
+        findIndex({ array, id }): number {
+            return array.findIndex((item) => {
+                return item.id === id;
+            });
         },
     }
 };

@@ -84,7 +84,12 @@ export default {
                 const element = document.querySelector('.draggable--is-draggable');
                 const dataset = element?.dataset;
 
-                if (!this.isDraggable && dataset && this.group === dataset.group && this.id !== dataset.is) {
+                if (
+                    !this.isDraggable
+                    && dataset
+                    && this.group === dataset.group
+                    && this.id !== dataset.id
+                ) {
                     this.$emit('onchange', {
                         newPositionId: this.id,
                         oldPositionId: dataset.id,

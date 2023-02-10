@@ -71,6 +71,10 @@ export default {
             align-items: center;
         }
 
+        &__icon {
+            pointer-events: none;
+        }
+
         &__text {
             padding: 0 var(--spacer-b);
         }

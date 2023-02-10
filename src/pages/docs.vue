@@ -38,37 +38,52 @@
 
             <div class="docs__list-container">
                 <div class="docs__list">
-                    <CategoryItem
+                    <Draggable
                         v-for="category in filteredCategories"
                         :key="category.id"
                         :id="category.id"
-                        :title="category.title"
-                        :indicators="category.indicators"
-                        :description="category.description"
-                        :isNeedOpen="category.isNeedOpen"
+                        group="categories"
+                        @onchange="setNewPositions"
+                    >
+                        <CategoryItem
+                            :title="category.title"
+                            :indicators="category.indicators"
+                            :description="category.description"
+                            :isNeedOpen="category.isNeedOpen"
+                        >
+                            <Draggable
+                                v-for="element in category.elements"
+                                :key="element.id"
+                                :id="element.id"
+                                group="elements"
+                                @onchange="setNewPositions"
+                            >
+                                <ElementItem
+                                    :title="element.title"
+                                    :indicators="element.indicators"
+                                    :warning="element.warning"
+                                    :description="element.description"
+                                />
+                            </Draggable>
+                        </CategoryItem>
+                    </Draggable>
+                </div>
+
+                <div class="docs__list">
+                    <Draggable
+                        v-for="element in filteredElements"
+                        :key="element.id"
+                        :id="element.id"
+                        group="elements"
+                        @onchange="setNewPositions"
                     >
                         <ElementItem
-                            v-for="element in category.elements"
-                            :key="element.id"
-                            :id="element.id"
                             :title="element.title"
                             :indicators="element.indicators"
                             :warning="element.warning"
                             :description="element.description"
                         />
-                    </CategoryItem>
-                </div>
-
-                <div class="docs__list">
-                    <ElementItem
-                        v-for="element in filteredElements"
-                        :key="element.id"
-                        :id="element.id"
-                        :title="element.title"
-                        :indicators="element.indicators"
-                        :warning="element.warning"
-                        :description="element.description"
-                    />
+                    </Draggable>
                 </div>
             </div>
         </div>
@@ -80,6 +95,7 @@ import IconPlus from '~/components/icons/plus.vue';
 import IconBookmark from '~/components/icons/bookmark.vue';
 import UiButton from '~/components/button.vue';
 import UiInput from '~/components/input.vue';
+import Draggable from '~/components/draggable.vue';
 import CategoryItem from '~/components/list/category.vue';
 import ElementItem from '~/components/list/element.vue';
 
@@ -110,6 +126,7 @@ export default {
         UiInput,
         CategoryItem,
         ElementItem,
+        Draggable,
     },
 
     data() {
@@ -244,6 +261,49 @@ export default {
             return this.elements;
         },
     },
+
+    methods: {
+        setNewPositions({ group, newPositionId, oldPositionId }) {
+            if (group === 'categories') {
+                this.categories = this.sortItems({array: this.categories, newPositionId, oldPositionId});
+            } else {
+                this.elements = this.sortItems({array: this.elements, newPositionId, oldPositionId});
+            }
+        },
+
+        sortItems({array, newPositionId, oldPositionId}) {
+            const oldPosition = array.findIndex(item => item.id === oldPositionId);
+            const newPosition = array.findIndex(item => item.id === newPositionId);
+
+            if (newPosition !== oldPosition) {
+                const tempArr = [];
+
+                array.forEach((item, index) => {
+                    if (index === newPosition) {
+                        if (newPosition < oldPosition) {
+                            tempArr.push(array[oldPosition]);
+                            tempArr.push(item);
+                            return;
+                        } else {
+                            tempArr.push(item);
+                            tempArr.push(array[oldPosition]);
+                            return;
+                        }
+                    }
+
+                    if (index === oldPosition) {
+                        return;
+                    }
+
+                    tempArr.push(item);
+                });
+
+                return tempArr;
+            }
+
+            return array;
+        },
+    }
 };
 </script>
 

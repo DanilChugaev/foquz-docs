@@ -22,8 +22,10 @@
 
         <UiButton
             class="actions-container__move-button"
+            data-role="move-button"
             :has-border="false"
-            @click="$emit('onMoveClick', $event)"
+            @mousedown="$emit('onMousedown', $event)"
+            @mouseup="$emit('onMouseup', $event)"
         >
             <template #icon>
                 <IconMove class="actions-container__move-icon"/>
@@ -61,8 +63,22 @@ export default {
             color: var(--gray-blue-color);
         }
 
+        &__move-icon {
+            transition: color 0.1s linear;
+        }
+
         &__delete-icon {
             color: var(--pink-color);
+        }
+
+        &__move-button {
+            cursor: move;
+
+            &:active {
+                .actions-container__move-icon {
+                    color: var(--blue-color);
+                }
+            }
         }
     }
 </style>

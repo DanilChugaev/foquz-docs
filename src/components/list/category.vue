@@ -1,5 +1,5 @@
 <template>
-    <div class="category" :id="id">
+    <div class="category">
         <div class="category__header">
             <UiButton
                 :class="{
@@ -29,7 +29,6 @@
                 class="category__actions-container"
                 @onEditClick="() => {}"
                 @onDeleteClick="() => {}"
-                @onMoveClick="() => {}"
             />
         </div>
 
@@ -64,11 +63,6 @@ export default {
     },
 
     props: {
-        id: {
-            type: String,
-            required: true,
-        },
-
         title: {
             type: String,
             required: true,

@@ -1,5 +1,5 @@
 <template>
-    <div class="element" :id="id">
+    <div class="element">
         <span class="element__title">{{title}}</span>
 
         <IndicatorsContainer
@@ -23,7 +23,6 @@
             class="element__actions-container"
             @onEditClick="() => {}"
             @onDeleteClick="() => {}"
-            @onMoveClick="() => {}"
         />
     </div>
 </template>
@@ -43,11 +42,6 @@ export default {
     },
 
     props: {
-        id: {
-            type: String,
-            required: true,
-        },
-
         title: {
             type: String,
             required: true,

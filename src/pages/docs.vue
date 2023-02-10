@@ -56,7 +56,7 @@
                                 :key="element.id"
                                 :id="element.id"
                                 group="elements"
-                                parent="categories"
+                                :parentId="category.id"
                                 @onchange="setNewPositions"
                             >
                                 <ElementItem
@@ -264,17 +264,31 @@ export default {
     },
 
     methods: {
-        setNewPositions({ group, newPositionId, oldPositionId }) {
+        setNewPositions({ group, oldParentId, newParentId, newPositionId, oldPositionId }) {
             if (group === 'categories') {
                 this.categories = this.sortItems({array: this.categories, newPositionId, oldPositionId});
             } else {
-                this.elements = this.sortItems({array: this.elements, newPositionId, oldPositionId});
+                if (newParentId && !oldParentId) {
+                    const newParentIndex = this.categories.findIndex((category) => {
+                        return category.id === newParentId;
+                    });
+
+                    this.categories[newParentIndex].elements = this.sortItems({array: this.categories[newParentIndex].elements, newPositionId, oldPositionId});
+                }
+
+                // if (newParentId && oldParentId) {
+
+                // }
+
+                if (!oldParentId && !newParentId) {
+                    this.elements = this.sortItems({array: this.elements, newPositionId, oldPositionId});
+                }
             }
         },
 
         sortItems({array, newPositionId, oldPositionId}) {
-            const oldPosition = array.findIndex(item => item.id === oldPositionId);
-            const newPosition = array.findIndex(item => item.id === newPositionId);
+            const oldPosition = array.findIndex((item) => item.id === oldPositionId);
+            const newPosition = array.findIndex((item) => item.id === newPositionId);
 
             if (newPosition !== oldPosition) {
                 const tempArr = [];

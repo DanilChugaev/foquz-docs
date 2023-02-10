@@ -7,6 +7,7 @@
         }"
         :data-id="id"
         :data-group="group"
+        :data-parentId="parentId"
         :draggable="isDraggable"
         @dragend="handleDragend"
         @dragover="handleDragover"
@@ -30,7 +31,7 @@ export default {
             type: String,
             required: true,
         },
-        parent: {
+        parentId: {
             type: String,
             default: '',
         },
@@ -78,7 +79,7 @@ export default {
 
                     console.log('this.id', this.id);
                     console.log('this.group', this.group);
-                    console.log('this.parent', this.parent);
+                    console.log('this.parentId', this.parentId);
                     console.log('dataset', dataset);
 
 
@@ -86,6 +87,8 @@ export default {
                         newPositionId: this.id,
                         oldPositionId: dataset.id,
                         group: dataset.group,
+                        oldParentId: dataset.parentId,
+                        newParentId: this.parentId,
                     });
                 }
             }, 100);

@@ -264,7 +264,8 @@ export default {
     },
 
     methods: {
-        setNewPositions({ group, newParentid, oldParentid, newPositionId, oldPositionId }) {
+        /** Перетаскиваем элементы */
+        setNewPositions({ group, newParentid, oldParentid, newPositionId, oldPositionId }): void {
             if (group === 'categories') {
                 // тут перемещаем между собой только категории
                 this.categories = this.sortItems({array: this.categories, newPositionId, oldPositionId});
@@ -354,7 +355,8 @@ export default {
             }
         },
 
-        sortItems({array, newPositionId, oldPositionId}) {
+        /** Сортируем элементы массива после перетаскивания */
+        sortItems({ array, newPositionId, oldPositionId }): ElementItemInterface[] | CategoryItemInterface[] {
             const oldPosition = array.findIndex((item) => item.id === oldPositionId);
             const newPosition = array.findIndex((item) => item.id === newPositionId);
 
@@ -387,12 +389,13 @@ export default {
             return array;
         },
 
+        /** Ищем индекс нужного элемента массива по айди */
         findIndex({ array, id }): number {
             return array.findIndex((item) => {
                 return item.id === id;
             });
         },
-    }
+    },
 };
 </script>
 

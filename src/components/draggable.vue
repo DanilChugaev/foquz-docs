@@ -13,6 +13,7 @@
         @dragover="handleDragover"
         @dragleave="handleDragleave"
         @mousedown="handleMousedown"
+        @mouseup="handleMouseup"
     >
         <slot />
     </div>
@@ -46,7 +47,7 @@ export default {
     },
 
     methods: {
-        handleMousedown(event) {
+        handleMousedown(event: MouseEvent): void {
             this.isDraggable = event.target.dataset.role === 'move-button';
 
             if (this.isDraggable) {
@@ -54,35 +55,36 @@ export default {
             }
         },
 
-        handleDragend() {
+        handleMouseup(): void {
             this.isDraggable = false;
         },
 
-        handleDragover(event) {
+        handleDragend(): void {
+            this.isDraggable = false;
+        },
+
+        handleDragover(event: Event): void {
             event.stopPropagation();
 
-            if (this.group === document.querySelector('.draggable--is-draggable').dataset.group) {
+            const element = document.querySelector('.draggable--is-draggable');
+            const dataset = element?.dataset;
+
+            if (dataset && this.group === dataset.group) {
                 this.isOver = true;
             }
         },
 
-        handleDragleave(event) {
+        handleDragleave(event: Event): void {
             event.stopPropagation();
-
-            this.isOver = false;
 
             clearTimeout(this.timerId);
 
             this.timerId = setTimeout(() => {
-                const dataset = document.querySelector('.draggable--is-draggable').dataset;
+                this.isOver = false;
+                const element = document.querySelector('.draggable--is-draggable');
+                const dataset = element?.dataset;
 
-                if (!this.isDraggable && this.group === dataset.group && this.id !== dataset.is) {
-
-                    console.log('this.id', this.id);
-                    console.log('this.group', this.group);
-                    console.log('this.parentid', this.parentid);
-                    console.log('dataset', dataset);
-
+                if (!this.isDraggable && dataset && this.group === dataset.group && this.id !== dataset.is) {
                     this.$emit('onchange', {
                         newPositionId: this.id,
                         oldPositionId: dataset.id,

@@ -1,7 +1,7 @@
 <template>
     <div class="index">
         <p>
-            Выполнено на основе собственного шаблона для разработки <a href="https://github.com/DanilChugaev/vite-vue3-ts-template">vite-vue3-ts-template</a>
+            Выполнено на основе собственного шаблона для разработки <a href="https://github.com/DanilChugaev/vite-vue3-ts-template" target="_blank">vite-vue3-ts-template</a>
         </p>
         <p>
             Результат выполнения задания находится на странице <router-link class="app-container__link" to="/docs">Документы</router-link>
@@ -11,6 +11,9 @@
         </p>
         <p>
             На странице <router-link class="app-container__link" to="/">ТЗ</router-link> (там где вы сейчас) в удобном виде представлено само техническое задание
+        </p>
+        <p>
+            Также добавлю, что вместо самописного решения для перетаскивания элементов с помощью Drag and Drop на продашене я бы использовал готовые опенсорные библиотеки, например, <a href="https://sortablejs.github.io/Vue.Draggable/#/simple" target="_blank">VueDraggable</a>
         </p>
 
         <p>

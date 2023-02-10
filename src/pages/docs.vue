@@ -56,6 +56,7 @@
                                 :key="element.id"
                                 :id="element.id"
                                 group="elements"
+                                parent="categories"
                                 @onchange="setNewPositions"
                             >
                                 <ElementItem

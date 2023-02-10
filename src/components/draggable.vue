@@ -30,6 +30,10 @@ export default {
             type: String,
             required: true,
         },
+        parent: {
+            type: String,
+            default: '',
+        },
     },
 
     data() {
@@ -74,6 +78,7 @@ export default {
 
                     console.log('this.id', this.id);
                     console.log('this.group', this.group);
+                    console.log('this.parent', this.parent);
                     console.log('dataset', dataset);
 
 

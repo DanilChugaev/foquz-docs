@@ -283,6 +283,7 @@ export default {
                             oldPositionId,
                         });
                     } else {
+                        // тут перемещаем элементы только между категориями
                         const oldParentIndex = this.findIndex({
                             array: this.categories,
                             id: oldParentid,
@@ -303,10 +304,27 @@ export default {
                 }
 
                 if (newParentid && !oldParentid) {
-                    // debugger
+                    // тут переещаем элементы только из списка элементов в категорию
+                    const newParentIndex = this.findIndex({
+                        array: this.categories,
+                        id: newParentid,
+                    });
+                    const oldChildIndex = this.findIndex({
+                        array: this.elements,
+                        id: oldPositionId,
+                    });
+
+                    this.categories[newParentIndex].elements = this.sortItems({
+                        array: [...this.categories[newParentIndex].elements, this.elements[oldChildIndex]],
+                        newPositionId,
+                        oldPositionId,
+                    });
+
+                    this.elements.splice(oldChildIndex, 1);
                 }
 
                 if (!newParentid && !oldParentid) {
+                    // debugger
                     // тут перемещаем только элементы снаружи
                     this.elements = this.sortItems({array: this.elements, newPositionId, oldPositionId});
                 }
